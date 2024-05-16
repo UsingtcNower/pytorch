@@ -115,7 +115,7 @@ bool FullyConnectedDNNLowPOp<T, ReluFused>::RunOnDevice() {
   int32_t X_zero_point = X_zero_point_;
   if (InputSize() == 5) {
     // float in float out, two possibilities
-    // if there are only 3 input (no qparams): dyanmic
+    // if there are only 3 input (no qparams): dynamic
     // if there are 5 input (+ input qparams): fused int8 static
     // output qparams need to be added anyway even it's dummy when dequantize_output=1
     const auto* input_qparam_blob =
@@ -309,7 +309,7 @@ bool FullyConnectedDNNLowPOp<T, ReluFused>::RunOnDevice() {
 
       if (!X.template IsType<T>()) {
         // Both input and output are float
-        // the path for dyanmic and fused staic
+        // the path for dynamic and fused staic
         row_offsets_.resize(
             PackAWithQuantRowOffset<uint8_t>::rowOffsetBufferSize());
         X_pack_buf_.resize(
